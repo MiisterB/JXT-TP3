@@ -1,20 +1,17 @@
+
+
 const express = require('express')
 const app = express()
-var users = {
-    "14014959" : {"prenom" : "Adrien",
-                  "nom"    : "Gégout"},
-    "16006451" : {"prenom" : "Simon",
-                 "nom"     : "Moisan"}
-}
+var bodyParser = require('body-parser')
 
-app.get('/', function (req, res) {
-  res.send('Hello World!')
-})
+app.use(bodyParser.urlencoded({encoded : true}))
+app.use(bodyParser.json())
 
-app.get('/users', function (req, res) {
-  res.send(users)
-})
+const usersRouter = require('./routes/router')
+
+app.use('/api/v1', usersRouter);
 
 app.listen(3000, function () {
   console.log('Example app listening on port 3000!')
 })
+
